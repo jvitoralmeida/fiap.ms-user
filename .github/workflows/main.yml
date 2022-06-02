@@ -41,3 +41,15 @@ jobs:
           dockerfile: ./src/main/docker/Dockerfile.native
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - uses: cancue/eks-action@v0.0.2
+        name: Deploy on Kubernetes Cluster
+        env:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-1
+          cluster_name: fiap-cluster
+        with:
+          args: |
+            kubectl apply git-deployment.yml
+      
