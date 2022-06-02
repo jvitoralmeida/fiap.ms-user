@@ -51,5 +51,5 @@ jobs:
           cluster_name: fiap-cluster
         with:
           args: |
-            kubectl apply git-deployment.yml
+            kubectl apply -f git-deployment.yml
       
