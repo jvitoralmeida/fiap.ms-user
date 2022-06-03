@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
         app: fiap-ms-user
-  replicas: 3
+  replicas: 2
   strategy:
     type: RollingUpdate
   template:
@@ -20,6 +20,6 @@ spec:
         - name: fiap-ms-user
           image: jvitoralmeida/fiap.ms-user:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               protocol: TCP
           imagePullPolicy: Always
