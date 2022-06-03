@@ -54,8 +54,8 @@ spec:
     app: fiap-ms-user
   ports:
   - protocol: 'TCP'
-    port: 8080
-    targetPort: 8080
+    port: 80
+    targetPort: 80
   type: LoadBalancer
 ---
 #api deploy
@@ -81,7 +81,7 @@ spec:
         - name: fiap-ms-user
           image: jvitoralmeida/fiap.ms-user:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           imagePullPolicy: Always
           env: 
