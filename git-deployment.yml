@@ -42,7 +42,7 @@ spec:
                 name: database-credentials
                 key: password
           - name: MONGO_INITDB_DATABASE
-            value: fiap.ms-store
+            value: fiap-ms-store
 ---
 #api service
 apiVersion: v1
@@ -55,7 +55,7 @@ spec:
   ports:
   - protocol: 'TCP'
     port: 80
-    targetPort: 80
+    targetPort: 8080
   type: LoadBalancer
 ---
 #api deploy
@@ -81,7 +81,7 @@ spec:
         - name: fiap-ms-user
           image: jvitoralmeida/fiap.ms-user:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               protocol: TCP
           imagePullPolicy: Always
           env: 
