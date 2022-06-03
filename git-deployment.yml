@@ -20,6 +20,6 @@ spec:
         - name: fiap-ms-user
           image: jvitoralmeida/fiap.ms-user:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           imagePullPolicy: Always
