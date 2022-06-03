@@ -1,3 +1,64 @@
+#db service
+apiVersion: v1
+kind: Service
+metadata:
+  name: fiap-ms-user-db
+spec:
+  selector:
+    app: fiap-ms-user-db
+  ports:
+  - protocol: 'TCP'
+    port: 27017
+    targetPort: 27017
+  type: LoadBalancer
+---
+#db deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fiap-ms-user-db
+  template:
+    metadata:
+      labels:
+        app: fiap-ms-user-db
+    spec:
+      containers:
+        - name: fiap-ms-user-db
+          image: mongo:latest
+          env: 
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: database-credentials
+                key: username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: database-credentials
+                key: password
+          - name: MONGO_INITDB_DATABASE
+            value: fiap.ms-store
+---
+#api service
+apiVersion: v1
+kind: Service
+metadata:
+  name: fiap-ms-user
+spec:
+  selector:
+    app: fiap-ms-user
+  ports:
+  - protocol: 'TCP'
+    port: 8080
+    targetPort: 8080
+  type: LoadBalancer
+---
+#api deploy
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,6 +81,19 @@ spec:
         - name: fiap-ms-user
           image: jvitoralmeida/fiap.ms-user:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               protocol: TCP
           imagePullPolicy: Always
+          env: 
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: database-credentials
+                key: username
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: database-credentials
+                key: password
+          - name: MONGO_INITDB_DATABASE
+            value: fiap.ms-store
