@@ -54,4 +54,4 @@ jobs:
           location: 'us-east1-b'
       
       - name: 'kubectl apply'
-        run: 'kubectl apply -f kubernetes-deployment.yml'
+        run: 'kubectl apply -f kubernetes-deployment.yaml'
