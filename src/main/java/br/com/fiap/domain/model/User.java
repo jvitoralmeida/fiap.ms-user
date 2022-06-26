@@ -5,6 +5,7 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntityBase;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ public class User extends PanacheMongoEntity {
     public LocalDate birthDate;
     public String email;
     public Long cellphone;
+    @NotNull
     public String cpf;
     @BsonIgnore
     public String password;
