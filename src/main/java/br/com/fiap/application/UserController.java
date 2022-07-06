@@ -3,6 +3,7 @@ package br.com.fiap.application;
 import br.com.fiap.domain.model.Auth;
 import br.com.fiap.domain.model.User;
 import br.com.fiap.domain.model.UserLogin;
+import br.com.fiap.domain.repository.UserRepository;
 import br.com.fiap.domain.services.UserService;
 import io.quarkus.security.identity.SecurityIdentity;
 import lombok.extern.slf4j.Slf4j;
@@ -20,20 +21,22 @@ import java.util.List;
 public class UserController {
 
     private final SecurityIdentity securityIdentity;
-    private UserService userService;
+    private final UserService userService;
+    private final UserRepository repository;
 
 
-    public UserController(SecurityIdentity securityIdentity, UserService userService) {
+    public UserController(SecurityIdentity securityIdentity, UserService userService, UserRepository repository) {
         this.securityIdentity = securityIdentity;
         this.userService = userService;
+        this.repository = repository;
     }
 
     @GET
     @Path("/findById")
-    @RolesAllowed({"user","admin"})
+    @RolesAllowed({"user", "admin"})
     public Response findUserById() {
 
-        var userOptional = User.findByCpf(securityIdentity.getPrincipal().getName());
+        var userOptional = repository.findByCpf(securityIdentity.getPrincipal().getName());
         if (userOptional.isPresent()) {
             return Response.ok(userOptional.get()).build();
         } else {
@@ -44,7 +47,7 @@ public class UserController {
     @GET
     @RolesAllowed("admin")
     public List<User> listAllUsers() {
-        return User.listAll();
+        return repository.listAll();
     }
 
     @POST

@@ -1,6 +1,5 @@
 package br.com.fiap.infra.integration.keycloak.service;
 
-import br.com.fiap.domain.model.Auth;
 import br.com.fiap.domain.model.UserLogin;
 import br.com.fiap.infra.integration.keycloak.client.KeycloakClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
