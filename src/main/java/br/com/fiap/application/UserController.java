@@ -68,7 +68,9 @@ public class UserController {
         var response = userService.authenticateUser(user);
 
         if (response.getStatus() == 200) {
-            var auth = response.readEntity(Auth.class);
+            log.info("authenticated successfully");
+            var auth = response.readEntity(String.class);
+            log.info(auth);
             return Response.ok(auth).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).build();
