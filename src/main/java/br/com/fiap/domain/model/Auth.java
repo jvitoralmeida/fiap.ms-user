@@ -9,6 +9,7 @@ public class Auth {
     @JsonProperty("access_token")
     private String accessToken;
 
+    public Auth(){}
     public Auth(String accessToken) {
         this.accessToken = accessToken;
     }
