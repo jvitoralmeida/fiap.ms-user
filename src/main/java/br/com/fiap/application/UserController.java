@@ -33,7 +33,7 @@ public class UserController {
 
     @GET
     @Path("/findById")
-    @RolesAllowed({"user", "admin"})
+    @RolesAllowed({"user"})
     public Response findUserById() {
 
         var userOptional = repository.findByCpf(securityIdentity.getPrincipal().getName());
