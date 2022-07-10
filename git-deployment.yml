@@ -95,5 +95,11 @@ spec:
               secretKeyRef:
                 name: database-credentials
                 key: password
+          - name: CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: keycloak-secrets-t624628kdf
+                key: clientid
+
           - name: MONGO_INITDB_DATABASE
             value: fiap.ms-store

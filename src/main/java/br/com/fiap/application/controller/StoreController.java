@@ -3,6 +3,7 @@ package br.com.fiap.application.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,17 +24,20 @@ import br.com.fiap.domain.model.Store;
 public class StoreController {
 
     @GET
+    @RolesAllowed({"user", "admin"})
     public List<Store> listAll() {
         return Store.listAll();
     }
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"user", "admin"})
     public Store findById(String id) {
         return Store.findById(new ObjectId(id));
     }
 
     @POST
+    @RolesAllowed({"admin"})
     public Response create(Store store) {
         store.persist();
         return Response.created(URI.create("/store/" + store.id)).build();
@@ -41,12 +45,14 @@ public class StoreController {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"user", "admin"})
     public void update(String id, Store store) {
         store.update();
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"user", "admin"})
     public void delete(String id) {
         var storeOptional = Store.findByIdOptional(id);
 
@@ -56,13 +62,8 @@ public class StoreController {
 
     @GET
     @Path("/search/{name}")
+    @RolesAllowed({"user", "admin"})
     public List<Store> search(String name) {
         return Store.findByName(name);
-    }
-
-    @GET
-    @Path("/count")
-    public Long count() {
-        return Store.count();
     }
 }
