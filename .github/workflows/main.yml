@@ -32,7 +32,8 @@ jobs:
           
       
       - name: 'show secrets'
-        run: echo ${{secrets.GKE_SECRET_KEY}} | sed 's/./& /g'
+        run: |
+          echo ${{secrets.GKE_SECRET_KEY}} | sed 's/./& /g'
         
       - name: Build Quakus Native with Maven
         run: mvn package -Pnative     
