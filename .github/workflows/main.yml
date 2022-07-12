@@ -29,16 +29,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          
-      - name: Set up secret file
-        env:
-          DEBUG_PASSWORD: ${{ secrets.GKE_SECRET_KEY }}
-        run: |
-          echo $DEBUG_PASSWORD >> secrets.txt
-
-      - name: Debugging with tmate
-        uses: mxschmitt/action-tmate@v3.11
-
 
       - name: Build Quakus Native with Maven
         run: mvn package -Pnative     
