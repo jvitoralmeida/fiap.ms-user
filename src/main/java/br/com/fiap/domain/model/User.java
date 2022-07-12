@@ -15,7 +15,7 @@ import java.util.Optional;
 public class User  {
     public ObjectId id;
     public String name;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     public LocalDate birthDate;
     public String email;
     public Long cellphone;
